@@ -25,6 +25,8 @@ import axios from "axios";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as FileSystem from "expo-file-system";
 import { AdMobBanner, AdMobInterstitial } from "expo-ads-admob";
+import WebView from "react-native-webview";
+import Layout from "../constants/Layout";
 
 export default function PostScreen(props) {
 	const [comments, setComments] = useState("");
@@ -167,7 +169,24 @@ export default function PostScreen(props) {
 					></Image>
 				</View>
 				<View style={{ marginHorizontal: 20 }}>
-					<HTML html={post.content.rendered}></HTML>
+					<HTML
+						html={post.content.rendered}
+						renderers={{
+							iframe: (htmlAttribs, children) => {
+								return htmlAttribs.src ? (
+									<WebView
+										style={{ width: "100%", height: 190 }}
+										source={{ uri: htmlAttribs.src }}
+									></WebView>
+								) : (
+									<WebView
+										style={{ width: "100%", height: 190 }}
+										source={{ html: htmlAttribs.srcdoc }}
+									></WebView>
+								);
+							}
+						}}
+					></HTML>
 				</View>
 				<View
 					style={{
