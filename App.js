@@ -12,11 +12,22 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import WebView from "react-native-webview";
 import * as FileSystem from "expo-file-system";
+import { AdMobInterstitial } from "expo-ads-admob";
 
 import AppNavigator from "./navigation/AppNavigator";
 
 export default function App(props) {
 	const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+	useEffect(() => {
+		AdMobInterstitial.setAdUnitID("ca-app-pub-5832084307445472/7196223658"); // Test ID, Replace with your-admob-unit-id
+		AdMobInterstitial.setTestDeviceID("EMULATOR");
+
+		setInterval(async () => {
+			const ad = await AdMobInterstitial.requestAdAsync();
+			AdMobInterstitial.showAdAsync();
+		}, 180000);
+	}, []);
 
 	if (WebView.defaultProps == null) WebView.defaultProps = {};
 	WebView.defaultProps.useWebKit = true;

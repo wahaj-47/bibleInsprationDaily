@@ -24,7 +24,7 @@ import Dimensions from "../constants/Layout";
 import axios from "axios";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as FileSystem from "expo-file-system";
-import { AdMobBanner, AdMobInterstitial } from "expo-ads-admob";
+import { AdMobBanner } from "expo-ads-admob";
 import WebView from "react-native-webview";
 import Layout from "../constants/Layout";
 
@@ -79,11 +79,12 @@ export default function PostScreen(props) {
 		return;
 	}
 
-	async function requestAd() {
-		AdMobInterstitial.setAdUnitID("ca-app-pub-5832084307445472/7196223658"); // Test ID, Replace with your-admob-unit-id
-		AdMobInterstitial.setTestDeviceID("EMULATOR");
-		await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
-	}
+	// async function requestAd() {
+	// 	AdMobInterstitial.setAdUnitID("ca-app-pub-5832084307445472/7196223658"); // Test ID, Replace with your-admob-unit-id
+	// 	AdMobInterstitial.setTestDeviceID("EMULATOR");
+	// 	await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+	// 	// await AdMobInterstitial.showAdAsync();
+	// }
 
 	// console.log(!downloading && !isSaved && !savedIds.includes(post.id));
 	// console.log(downloading && !savedIds.includes(post.id));
@@ -94,21 +95,7 @@ export default function PostScreen(props) {
 		getFavourites();
 		getSaved();
 		getSavedIds();
-		AdMobInterstitial.addEventListener("interstitialDidLoad", async () => {
-			StatusBar.setHidden(true);
-			await AdMobInterstitial.showAdAsync();
-			return function removeListener() {
-				AdMobInterstitial.removeAllListeners();
-			};
-		});
-		AdMobInterstitial.addEventListener("interstitialDidClose", () => {
-			StatusBar.setHidden(false);
-			console.log("interstitialDidClose");
-			return function removeListener() {
-				AdMobInterstitial.removeAllListeners();
-			};
-		});
-		requestAd();
+		// requestAd();
 	}, []);
 
 	// console.log(isSaved);

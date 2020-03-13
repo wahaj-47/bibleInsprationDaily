@@ -92,7 +92,7 @@ class SignIn extends React.PureComponent {
 					.then(({ data }) => {
 						data.error
 							? this.setState({ errorMsg: data.error })
-							: console.log(data);
+							: this.setState({ cookie: data.cookie, errorMsg: "" });
 					});
 			})
 			.catch(error => {
