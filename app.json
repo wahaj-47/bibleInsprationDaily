@@ -34,7 +34,10 @@
 			"permissions": [],
 			"config": {
 				"googleMobileAdsAppId": "ca-app-pub-5832084307445472~3414689490"
-			}
-		}
+			},
+			"publishBundlePath": "android\\app\\src\\main\\assets\\shell-app.bundle",
+			"publishManifestPath": "android\\app\\src\\main\\assets\\shell-app-manifest.json"
+		},
+		"scheme": "exp32e04ec698934df29470a0574a2d4abe"
 	}
 }
