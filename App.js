@@ -26,7 +26,7 @@ export default function App(props) {
 		setInterval(async () => {
 			const ad = await AdMobInterstitial.requestAdAsync();
 			AdMobInterstitial.showAdAsync();
-		}, 180000);
+		}, 1800000);
 	}, []);
 
 	if (WebView.defaultProps == null) WebView.defaultProps = {};

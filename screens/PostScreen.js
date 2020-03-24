@@ -29,18 +29,15 @@ import WebView from "react-native-webview";
 import Layout from "../constants/Layout";
 
 export default function PostScreen(props) {
-	const [comments, setComments] = useState("");
-	const [comment, setComment] = useState("");
 	const [refresh, setRefresh] = useState(false);
-	const [favourites, setFavourites] = useState([]);
-	const [saved, setSaved] = useState([]);
-	const [savedIds, setSavedIds] = useState([]);
-	const [liked, setLiked] = useState(false);
+	const [likes, setLikes] = useState(0);
 	const [downloading, setDownloading] = useState(false);
-	const [isSaved, setIsSaved] = useState(false);
-	const post = props.navigation.getParam("post");
+	const [post, setPost] = useState(props.navigation.getParam("post"));
 	const date = new Date(post.date);
 	const formattedDate = format(date, "MMMM dd, yyyy");
+
+	const [comments, setComments] = useState("");
+	const [comment, setComment] = useState("");
 
 	function getComments() {
 		axios
@@ -53,6 +50,9 @@ export default function PostScreen(props) {
 			});
 	}
 
+	const [favourites, setFavourites] = useState([]);
+	const [liked, setLiked] = useState(false);
+
 	async function getFavourites() {
 		const favs = await AsyncStorage.getItem("favourites");
 		if (favs !== null) {
@@ -61,16 +61,33 @@ export default function PostScreen(props) {
 		}
 	}
 
+	const [saved, setSaved] = useState([]);
+
 	async function getSaved() {
 		const saves = await AsyncStorage.getItem("saved");
 		if (saves !== null) setSaved(JSON.parse(saves));
 	}
+
+	const [savedIds, setSavedIds] = useState([]);
+	const [isSaved, setIsSaved] = useState(false);
 
 	async function getSavedIds() {
 		const savedIds = await AsyncStorage.getItem("savedIds");
 		if (savedIds !== null) {
 			setSavedIds(JSON.parse(savedIds));
 			if (savedIds.includes(post.id)) setIsSaved(true);
+		}
+	}
+
+	const [likedPosts, setLikedPosts] = useState([]);
+	const [isLiked, setIsLiked] = useState(false);
+
+	async function getLikedPosts() {
+		const liked = await AsyncStorage.getItem("likedPosts");
+		console.log(liked);
+		if (liked !== null) {
+			setLikedPosts(JSON.parse(liked));
+			if (liked.includes(post.id)) setIsLiked(true);
 		}
 	}
 
@@ -91,10 +108,17 @@ export default function PostScreen(props) {
 	// console.log(isSaved && savedIds.includes(post.id));
 
 	useEffect(() => {
+		setLikes(post._liked);
 		getComments();
 		getFavourites();
 		getSaved();
 		getSavedIds();
+		getLikedPosts();
+		axios
+			.get(`http://bibleinspirationdaily.online/wp-json/wp/v2/posts/${post.id}`)
+			.then(response => {
+				setPost(response.data);
+			});
 		// requestAd();
 	}, []);
 
@@ -187,6 +211,95 @@ export default function PostScreen(props) {
 					}}
 				>
 					<TouchableOpacity
+						style={{
+							flexDirection: "row",
+							alignItems: "center",
+							marginHorizontal: 5
+						}}
+						onPress={async () => {
+							const cookie = await axios.post(
+								"https://bibleinspirationdaily.online/api/user/generate_auth_cookie?email=appUser@email.com&password=YT@$sqZX29xT58H#yy#qKJuh"
+							);
+							// console.log(favourites.includes(post.id));
+							if (likedPosts.includes(post.id) || isLiked) {
+								setLikes(Number(likes) - 1);
+								const newLikedPosts = likedPosts.filter(
+									likedPost => likedPost !== post.id
+								);
+								AsyncStorage.setItem(
+									"likedPosts",
+									JSON.stringify(newLikedPosts)
+								);
+								axios
+									.post(
+										`https://bibleinspirationdaily.online/api/user/like?cookie=${
+											cookie.data.cookie
+										}&post_id=${post.id}&value=${Number(likes) - 1}`
+									)
+									.then(() => {
+										axios
+											.get(
+												`http://bibleinspirationdaily.online/wp-json/wp/v2/posts/${post.id}`
+											)
+											.then(response => {
+												console.log(response.data._liked);
+												setPost(response.data);
+											});
+									});
+								setIsLiked(false);
+								getLikedPosts();
+							} else {
+								// console.log("here");
+								setLikes(Number(likes) + 1);
+
+								if (likedPosts !== null)
+									AsyncStorage.setItem(
+										"likedPosts",
+										JSON.stringify([...likedPosts, post.id])
+									);
+								else
+									AsyncStorage.setItem("likedPosts", JSON.stringify([post.id]));
+
+								axios
+									.post(
+										`https://bibleinspirationdaily.online/api/user/like?cookie=${
+											cookie.data.cookie
+										}&post_id=${post.id}&value=${Number(likes) + 1}`
+									)
+									.then(() => {
+										axios
+											.get(
+												`http://bibleinspirationdaily.online/wp-json/wp/v2/posts/${post.id}`
+											)
+											.then(response => {
+												console.log(response.data._liked);
+												setPost(response.data);
+											});
+									});
+
+								setIsLiked(true);
+								getLikedPosts();
+							}
+						}}
+					>
+						<TabBarIcon
+							focused={isLiked && likedPosts.includes(post.id)}
+							name={Platform.OS === "ios" ? "ios-thumbs-up" : "md-thumbs-up"}
+						></TabBarIcon>
+						<Text
+							style={{
+								marginLeft: 5,
+								color:
+									isLiked && likedPosts.includes(post.id) ? "steelblue" : "gray"
+							}}
+						>
+							{likes > post._liked
+								? likes > 0 && likes
+								: post._liked > 0 && post._liked}{" "}
+							{post._liked > 1 ? "Likes" : "Like"}
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
 						onPress={async () => {
 							// console.log(favourites.includes(post.id));
 							if (favourites.includes(post.id) || liked) {
@@ -212,7 +325,8 @@ export default function PostScreen(props) {
 						}}
 						style={{
 							flexDirection: "row",
-							alignItems: "center"
+							alignItems: "center",
+							marginHorizontal: 5
 						}}
 					>
 						<TabBarIcon
@@ -221,7 +335,7 @@ export default function PostScreen(props) {
 						></TabBarIcon>
 						<Text
 							style={{
-								marginLeft: 10,
+								marginLeft: 5,
 								color:
 									liked && favourites.includes(post.id) ? "steelblue" : "gray"
 							}}
@@ -295,7 +409,8 @@ export default function PostScreen(props) {
 						}}
 						style={{
 							flexDirection: "row",
-							alignItems: "center"
+							alignItems: "center",
+							marginHorizontal: 5
 						}}
 					>
 						<TabBarIcon
@@ -321,7 +436,7 @@ export default function PostScreen(props) {
 						></TabBarIcon>
 						<Text
 							style={{
-								marginLeft: 10,
+								marginLeft: 5,
 								color:
 									isSaved && savedIds.includes(post.id) ? "steelblue" : "gray"
 							}}
@@ -329,7 +444,7 @@ export default function PostScreen(props) {
 							{(!downloading &&
 								!isSaved &&
 								!savedIds.includes(post.id) &&
-								"Make available offline") ||
+								"Save") ||
 								(downloading && !savedIds.includes(post.id) && "Downloading") ||
 								(isSaved && savedIds.includes(post.id) && "Saved")}
 						</Text>
@@ -363,15 +478,16 @@ export default function PostScreen(props) {
 								borderRadius: 5,
 								alignItems: "center"
 							}}
-							onPress={() => {
+							onPress={async () => {
 								alert(
 									"To ensure the quality of content, your comment will be reviewed and will be automatically added after the review is complete"
 								);
-								const cookie =
-									"appUser|1580023094|x1R2viAqiSDxiGbeNV9ELP7HBglATKvmCoetjhHKslW|c55c81ebe1ce7a1a7e7cacf3b6ea94fbbfdfb66a4406b0b4a07d5a7eab9242be";
+								const cookie = await axios.post(
+									"https://bibleinspirationdaily.online/api/user/generate_auth_cookie?email=appUser@email.com&password=YT@$sqZX29xT58H#yy#qKJuh"
+								);
 								axios
 									.post(
-										`https://bibleinspirationdaily.online/api/user/post_comment?cookie=${cookie}&post_id=${post.id}&content=${comment}&comment_status=hold`
+										`https://bibleinspirationdaily.online/api/user/post_comment?cookie=${cookie.data.cookie}&post_id=${post.id}&content=${comment}&comment_status=hold`
 									)
 									.then(() => {
 										getComments();

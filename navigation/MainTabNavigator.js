@@ -8,6 +8,10 @@ import DevotionScreen from "../screens/DevotionScreen";
 import NewsScreen from "../screens/NewsScreen";
 import ContactScreen from "../screens/ContactScreen";
 import PostScreen from "../screens/PostScreen";
+import AuthStack from "./AuthStackNavigator";
+import { createSwitchNavigator } from "react-navigation";
+import TriviaScreen from "../screens/TriviaScreen";
+import LeaderBoardScreen from "../screens/LeaderBoardScreen";
 
 const config = Platform.select({
 	web: { headerMode: "screen" },
@@ -43,7 +47,7 @@ const AboutStack = createStackNavigator(
 );
 
 AboutStack.navigationOptions = {
-	tabBarLabel: "Christian Articles",
+	tabBarLabel: "Articles",
 	tabBarIcon: ({ focused }) => (
 		<TabBarIcon
 			focused={focused}
@@ -73,11 +77,37 @@ ContactStack.navigationOptions = {
 
 ContactStack.path = "";
 
+const TriviaStack = createStackNavigator(
+	{
+		Trivia: TriviaScreen,
+		Leaderboard: LeaderBoardScreen
+	},
+	{ headerMode: "none", initialRouteName: "Trivia" }
+);
+
+TriviaStack.path = "";
+
+const TriviaSwitch = createSwitchNavigator(
+	{
+		Auth: AuthStack,
+		Trivia: TriviaStack
+	},
+	{ initialRouteName: "Auth", headerMode: "none" }
+);
+
+TriviaSwitch.navigationOptions = {
+	tabBarLabel: "Trivia",
+	tabBarIcon: ({ focused }) => (
+		<TabBarIcon focused={focused} name="logo-game-controller-b" />
+	)
+};
+
 const tabNavigator = createBottomTabNavigator(
 	{
 		HomeStack,
 		AboutStack,
-		ContactStack
+		ContactStack,
+		TriviaSwitch
 	},
 	{
 		tabBarOptions: {

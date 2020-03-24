@@ -7,7 +7,8 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	View
+	View,
+	AsyncStorage
 } from "react-native";
 import Constants from "expo-constants";
 import { RkAvoidKeyboard, RkCard } from "react-native-ui-kitten";
@@ -90,9 +91,14 @@ class SignIn extends React.PureComponent {
 						`https://bibleinspirationdaily.online/api/user/generate_auth_cookie?username=${this.state.username}&password=${this.state.password}&nonce=${data.nonce}`
 					)
 					.then(({ data }) => {
-						data.error
-							? this.setState({ errorMsg: data.error })
-							: this.setState({ cookie: data.cookie, errorMsg: "" });
+						if (data.error) {
+							this.setState({ errorMsg: data.error });
+						} else {
+							AsyncStorage.setItem("userId", String(data.user.id));
+							AsyncStorage.setItem("cookie", data.cookie).then(() => {
+								this.props.navigation.navigate("Trivia");
+							});
+						}
 					});
 			})
 			.catch(error => {
@@ -141,10 +147,12 @@ class SignIn extends React.PureComponent {
 							style={{ marginTop: 8 }}
 							textStyle={{ fontSize: 20 }}
 							text="LOGIN"
+							// text="COMING SOON"
 							height={50}
 							impact
 							onPressAction={this.handleLoginPressed}
 							disabled={!(username.length > 0 && password.length > 0)}
+							// disabled={true}
 						/>
 					</RkCard>
 				</View>
