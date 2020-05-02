@@ -41,7 +41,6 @@
         "googleMobileAdsAppId": "ca-app-pub-5832084307445472~3414689490"
       }
     },
-    "scheme": "exp32e04ec698934df29470a0574a2d4abe",
-    "entryPoint": "node_modules/expo/AppEntry.js"
+    "scheme": "exp32e04ec698934df29470a0574a2d4abe"
   }
 }
