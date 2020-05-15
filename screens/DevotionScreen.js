@@ -57,7 +57,7 @@ export default function DevotionScreen(props) {
   async function getPosts() {
     setRefreshing(true);
     const response = await axios.get(
-      "http://bibleinspirationdaily.online/wp-json/wp/v2/posts?categories=5&per_page=100"
+      "http://bibleinspirationdaily.online/wp-json/wp/v2/posts?categories=5&per_page=20"
     );
     setPosts(response.data);
     arrayholder = response.data;

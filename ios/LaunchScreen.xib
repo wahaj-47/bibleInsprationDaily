@@ -14,20 +14,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="U25-jz-GGZ">
-                    <rect key="frame" x="-19.5" y="-114.5" width="414" height="896"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="SplashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="U25-jz-GGZ">
+                    <rect key="frame" x="-20" y="-48" width="414" height="896"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="414" id="6fk-6h-fvd"/>
-                        <constraint firstAttribute="height" constant="896" id="YaS-64-yKM"/>
+                        <constraint firstAttribute="height" constant="896" id="lNF-Hf-5Q1"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="U25-jz-GGZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="92Z-zb-V25"/>
-                <constraint firstItem="U25-jz-GGZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="S2Q-oe-OVB"/>
-                <constraint firstItem="U25-jz-GGZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cww-yu-tsk"/>
-                <constraint firstItem="U25-jz-GGZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hfJ-hL-w5i"/>
+                <constraint firstItem="U25-jz-GGZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="9Rb-TT-unZ"/>
+                <constraint firstItem="U25-jz-GGZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-20" id="Li4-kQ-qKM"/>
+                <constraint firstItem="U25-jz-GGZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-48" id="muQ-JC-Rqa"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="128.98550724637681" y="85.714285714285708"/>

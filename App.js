@@ -28,7 +28,7 @@ export default function App(props) {
         if (!purchase.acknowledged) {
           console.log(`Successfully purchased ${purchase.productId}`);
           // Process transaction here and unlock content...
-          AdMobInterstitial.setAdUnitID(null);
+          // AdMobInterstitial.setAdUnitID("");
           setHistory(results);
 
           // Then when you're done
@@ -55,18 +55,20 @@ export default function App(props) {
 
   initPurchases = async () => {
     const response = await InAppPurchases.connectAsync();
-    if (response.responseCode === InAppPurchases.IAPResponseCode.OK) {
-      setHistory(response.results);
-      if (
-        response.results[0].purchaseState ===
-        InAppPurchases.InAppPurchaseState.PURCHASED
-      ) {
-        AdMobInterstitial.setAdUnitID(null); // Test ID, Replace with your-admob-unit-id
-      } else {
-        AdMobInterstitial.setAdUnitID("ca-app-pub-5832084307445472/7196223658"); // Test ID, Replace with your-admob-unit-id
-        AdMobInterstitial.setTestDeviceID("EMULATOR");
-      }
-    }
+    console.log(response);
+    setHistory(response.results);
+    // if (response.responseCode === InAppPurchases.IAPResponseCode.OK) {
+    //   if (
+    //     response.results[0].purchaseState ===
+    //     InAppPurchases.InAppPurchaseState.PURCHASED
+    //   ) {
+    //     AdMobInterstitial.setAdUnitID(""); // Test ID, Replace with your-admob-unit-id
+    //   } else {
+    //     AdMobInterstitial.setAdUnitID("ca-app-pub-5832084307445472/7196223658"); // Test ID, Replace with your-admob-unit-id
+    //     AdMobInterstitial.setTestDeviceID("EMULATOR");
+    //   }
+    // }
+    InAppPurchases.disconnectAsync();
   };
 
   useEffect(() => {
@@ -79,8 +81,10 @@ export default function App(props) {
     }
 
     setInterval(async () => {
-      const ad = await AdMobInterstitial.requestAdAsync();
-      AdMobInterstitial.showAdAsync();
+      if (history[0].purchaseState !== 1) {
+        const ad = await AdMobInterstitial.requestAdAsync();
+        AdMobInterstitial.showAdAsync();
+      }
     }, 180000);
   }, []);
 

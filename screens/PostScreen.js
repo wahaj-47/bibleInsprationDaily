@@ -143,19 +143,21 @@ export default function PostScreen(props) {
             name={Platform.OS === "ios" ? "ios-arrow-back" : "md-arrow-back"}
           />
         </TouchableWithoutFeedback>
-        <View>
-          <AdMobBanner
-            bannerSize="fullBanner"
-            adUnitID={
-              props.screenProps.history[0].purchaseState !== 1
-                ? "ca-app-pub-5832084307445472/3878605801"
-                : null
-            } // Test ID, Replace with your-admob-unit-id
-            // testDeviceID="EMULATOR"
-            // servePersonalizedAds // true or false
-            onDidFailToReceiveAdWithError={bannerError}
-          />
-        </View>
+        {props.screenProps.history[0].purchaseState !== 1 && (
+          <View>
+            <AdMobBanner
+              bannerSize="fullBanner"
+              adUnitID={
+                props.screenProps.history[0].purchaseState !== 1
+                  ? "ca-app-pub-5832084307445472/3878605801"
+                  : ""
+              } // Test ID, Replace with your-admob-unit-id
+              // testDeviceID="EMULATOR"
+              // servePersonalizedAds // true or false
+              onDidFailToReceiveAdWithError={bannerError}
+            />
+          </View>
+        )}
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
           <Text style={styles.title}>{post.title.rendered} </Text>
 

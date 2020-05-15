@@ -24,28 +24,50 @@ import * as InAppPurchases from "expo-in-app-purchases";
 export default function ContactScreen(props) {
   const [loading, setLoading] = useState(false);
 
-  const [items, setItems] = useState(undefined);
-
-  useEffect(() => {
-    initItems = async () => {
-      const items = Platform.select({
-        ios: ["removeAds"],
-        android: ["gas", "premium", "gold_monthly", "gold_yearly"],
-      });
-
-      // Retrieve product details
-      const { responseCode, results } = await InAppPurchases.getProductsAsync(
-        items
-      );
-      if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-        setItems(results);
-      }
-    };
-
-    initItems();
-  }, []);
-
   const [history, setHistory] = useState(props.screenProps.history);
+
+  initPurchases = async () => {
+    const response = await InAppPurchases.connectAsync();
+    setHistory(response.results);
+    // if (response.responseCode === InAppPurchases.IAPResponseCode.OK) {
+    //   if (
+    //     response.results[0].purchaseState ===
+    //     InAppPurchases.InAppPurchaseState.PURCHASED
+    //   ) {
+    //     AdMobInterstitial.setAdUnitID(null); // Test ID, Replace with your-admob-unit-id
+    //   } else {
+    //     AdMobInterstitial.setAdUnitID("ca-app-pub-5832084307445472/7196223658"); // Test ID, Replace with your-admob-unit-id
+    //     AdMobInterstitial.setTestDeviceID("EMULATOR");
+    //   }
+    // }
+  };
+
+  initItems = async () => {
+    const items = Platform.select({
+      ios: ["removeAdsV2"],
+      android: ["gas", "premium", "gold_monthly", "gold_yearly"],
+    });
+
+    try {
+      await initPurchases();
+    } catch (error) {
+      console.log(error);
+    }
+
+    // Retrieve product details
+    const { responseCode, results } = await InAppPurchases.getProductsAsync(
+      items
+    );
+    console.log(responseCode);
+    console.log(results);
+    if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+      return Promise.resolve(results);
+    }
+  };
+
+  // useEffect(() => {
+  //   initItems();
+  // }, []);
 
   // useEffect(() => {
   //   getHistory = async () => {
@@ -98,33 +120,54 @@ export default function ContactScreen(props) {
             marginHorizontal: 20,
           }}
         >
-          <TouchableOpacity
-            disabled={history === undefined}
-            style={
-              history === undefined
-                ? [styles.button, { backgroundColor: "gray" }]
-                : styles.button
-            }
-            onPress={async () => {
-              setLoading(true);
-              InAppPurchases.purchaseItemAsync(items[0].productId).then(() => {
-                setLoading(false);
-              });
+          <View
+            style={{
+              padding: 10,
+              borderColor: "steelblue",
+              borderRadius: 10,
+              borderWidth: 1,
+              marginBottom: 20,
             }}
           >
-            {loading ? (
-              <ActivityIndicator></ActivityIndicator>
-            ) : (
-              <>
-                <TabBarIcon
-                  name={
-                    Platform.OS === "ios" ? "ios-backspace" : "md-backspace"
-                  }
-                ></TabBarIcon>
-                <Text style={styles.buttonText}>Remove Ads</Text>
-              </>
-            )}
-          </TouchableOpacity>
+            <Text
+              style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}
+            >
+              Remove Ads:
+            </Text>
+            <Text>Following ads will be removed</Text>
+            <Text>- Banner ads</Text>
+            <Text>- Full screen ads</Text>
+            <TouchableOpacity
+              disabled={history === undefined}
+              style={[
+                history === undefined && { backgroundColor: "gray" },
+                styles.button,
+                { marginBottom: 0, marginTop: 10 },
+              ]}
+              onPress={async () => {
+                setLoading(true);
+                try {
+                  const items = await initItems();
+                  await InAppPurchases.purchaseItemAsync(
+                    items[0].productId
+                  ).then(() => {
+                    setLoading(false);
+                  });
+                  InAppPurchases.disconnectAsync();
+                } catch (error) {
+                  console.log(error);
+                  setLoading(false);
+                  InAppPurchases.disconnectAsync();
+                }
+              }}
+            >
+              {loading ? (
+                <ActivityIndicator></ActivityIndicator>
+              ) : (
+                <Text style={styles.buttonText}>$7.99/month</Text>
+              )}
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
