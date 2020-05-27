@@ -27,6 +27,7 @@ import * as FileSystem from "expo-file-system";
 import { AdMobBanner } from "expo-ads-admob";
 import WebView from "react-native-webview";
 import Layout from "../constants/Layout";
+import { InAppPurchaseState } from "expo-in-app-purchases";
 
 export default function PostScreen(props) {
   const [refresh, setRefresh] = useState(false);
@@ -122,6 +123,31 @@ export default function PostScreen(props) {
     // requestAd();
   }, []);
 
+  renderAdBanner = () => {
+    if (props.screenProps.history !== undefined) {
+      if (props.screenProps.history.length > 0) {
+        if (
+          props.screenProps.history[0].purchaseState ===
+            InAppPurchaseState.PURCHASED ||
+          props.screenProps.history[0].purchaseState ===
+            InAppPurchaseState.RESTORED
+        )
+          return;
+      }
+    }
+    return (
+      <View>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-5832084307445472/3878605801" // Test ID, Replace with your-admob-unit-id
+          // testDeviceID="EMULATOR"
+          // servePersonalizedAds // true or false
+          onDidFailToReceiveAdWithError={bannerError}
+        />
+      </View>
+    );
+  };
+
   // console.log(isSaved);
 
   return (
@@ -143,21 +169,7 @@ export default function PostScreen(props) {
             name={Platform.OS === "ios" ? "ios-arrow-back" : "md-arrow-back"}
           />
         </TouchableWithoutFeedback>
-        {props.screenProps.history[0].purchaseState !== 1 && (
-          <View>
-            <AdMobBanner
-              bannerSize="fullBanner"
-              adUnitID={
-                props.screenProps.history[0].purchaseState !== 1
-                  ? "ca-app-pub-5832084307445472/3878605801"
-                  : ""
-              } // Test ID, Replace with your-admob-unit-id
-              // testDeviceID="EMULATOR"
-              // servePersonalizedAds // true or false
-              onDidFailToReceiveAdWithError={bannerError}
-            />
-          </View>
-        )}
+        {renderAdBanner()}
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
           <Text style={styles.title}>{post.title.rendered} </Text>
 

@@ -53,9 +53,9 @@ export default function App(props) {
 
   const [history, setHistory] = useState(undefined);
 
-  initPurchases = async () => {
+  const initPurchases = async () => {
     const response = await InAppPurchases.connectAsync();
-    console.log(response);
+    console.log(response.results[0]);
     setHistory(response.results);
     // if (response.responseCode === InAppPurchases.IAPResponseCode.OK) {
     //   if (
@@ -81,30 +81,37 @@ export default function App(props) {
     }
 
     setInterval(async () => {
-      if (history[0].purchaseState !== 1) {
-        const ad = await AdMobInterstitial.requestAdAsync();
-        AdMobInterstitial.showAdAsync();
-      }
+      if (history !== undefined)
+        if (history.length > 0)
+          if (
+            history[0].purchaseState === InAppPurchaseState.PURCHASED ||
+            history[0].purchaseState === InAppPurchaseState.RESTORED
+          )
+            return;
+      const ad = await AdMobInterstitial.requestAdAsync();
+      AdMobInterstitial.showAdAsync();
     }, 180000);
   }, []);
 
   if (WebView.defaultProps == null) WebView.defaultProps = {};
   WebView.defaultProps.useWebKit = true;
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
+  if (!isLoadingComplete) {
     return <View></View>;
   } else {
     return (
       <View style={styles.container}>
         {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
-        <AppNavigator screenProps={{ history: history }} />
+        <AppNavigator
+          screenProps={{ history: history, restorePurchases: initPurchases }}
+        />
       </View>
     );
   }
 }
 
 async function loadResourcesAsync() {
-  initPurchases();
+  // initPurchases();
   let info = await FileSystem.getInfoAsync(
     FileSystem.documentDirectory + "posts"
   );

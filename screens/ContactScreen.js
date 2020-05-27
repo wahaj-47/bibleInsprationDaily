@@ -23,10 +23,11 @@ import * as InAppPurchases from "expo-in-app-purchases";
 
 export default function ContactScreen(props) {
   const [loading, setLoading] = useState(false);
+  const [restoring, setRestoring] = useState(false);
 
   const [history, setHistory] = useState(props.screenProps.history);
 
-  initPurchases = async () => {
+  const initPurchases = async () => {
     const response = await InAppPurchases.connectAsync();
     setHistory(response.results);
     // if (response.responseCode === InAppPurchases.IAPResponseCode.OK) {
@@ -42,27 +43,22 @@ export default function ContactScreen(props) {
     // }
   };
 
-  initItems = async () => {
+  const initItems = async () => {
     const items = Platform.select({
       ios: ["removeAdsV2"],
       android: ["gas", "premium", "gold_monthly", "gold_yearly"],
     });
 
-    try {
-      await initPurchases();
-    } catch (error) {
-      console.log(error);
-    }
+    await InAppPurchases.connectAsync();
 
     // Retrieve product details
     const { responseCode, results } = await InAppPurchases.getProductsAsync(
       items
     );
-    console.log(responseCode);
-    console.log(results);
     if (responseCode === InAppPurchases.IAPResponseCode.OK) {
       return Promise.resolve(results);
     }
+    return Promise.resolve("Error");
   };
 
   // useEffect(() => {
@@ -138,7 +134,7 @@ export default function ContactScreen(props) {
             <Text>- Banner ads</Text>
             <Text>- Full screen ads</Text>
             <TouchableOpacity
-              disabled={history === undefined}
+              // disabled={history === undefined}
               style={[
                 history === undefined && { backgroundColor: "gray" },
                 styles.button,
@@ -148,12 +144,19 @@ export default function ContactScreen(props) {
                 setLoading(true);
                 try {
                   const items = await initItems();
-                  await InAppPurchases.purchaseItemAsync(
-                    items[0].productId
-                  ).then(() => {
+                  console.log(items);
+                  if (items !== "Error") {
+                    console.log("here");
+                    await InAppPurchases.purchaseItemAsync(
+                      items[0].productId
+                    ).then(() => {
+                      InAppPurchases.disconnectAsync();
+                      setLoading(false);
+                    });
+                  } else {
+                    InAppPurchases.disconnectAsync();
                     setLoading(false);
-                  });
-                  InAppPurchases.disconnectAsync();
+                  }
                 } catch (error) {
                   console.log(error);
                   setLoading(false);
@@ -162,9 +165,36 @@ export default function ContactScreen(props) {
               }}
             >
               {loading ? (
-                <ActivityIndicator></ActivityIndicator>
+                <ActivityIndicator
+                  color="white"
+                  size="small"
+                ></ActivityIndicator>
               ) : (
                 <Text style={styles.buttonText}>$7.99/month</Text>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              // disabled={history === undefined}
+              style={[
+                history === undefined && { backgroundColor: "gray" },
+                styles.button,
+                { marginBottom: 0, marginTop: 10 },
+              ]}
+              onPress={async () => {
+                setRestoring(true);
+                props.screenProps.restorePurchases().then(() => {
+                  alert("Purchases Restored");
+                  setRestoring(false);
+                });
+              }}
+            >
+              {restoring ? (
+                <ActivityIndicator
+                  color="white"
+                  size="small"
+                ></ActivityIndicator>
+              ) : (
+                <Text style={styles.buttonText}>Restore Purchases</Text>
               )}
             </TouchableOpacity>
           </View>
