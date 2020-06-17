@@ -1,41 +1,47 @@
 {
-	"expo": {
-		"name": "Daily Inspired",
-		"slug": "bibleInspirationDaily",
-		"privacy": "public",
-		"sdkVersion": "36.0.0",
-		"platforms": ["ios", "android", "web"],
-		"version": "6.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/images/icon.png",
-		"splash": {
-			"image": "./assets/images/splash.png",
-			"resizeMode": "cover",
-			"backgroundColor": "#ffffff"
-		},
-		"notification": {
-			"icon": "./assets/images/icon.png"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 10000
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"bundleIdentifier": "com.inspiredDaily.app",
-			"buildNumber": "11.0.0",
-			"supportsTablet": false,
-			"config": {
-				"googleMobileAdsAppId": "ca-app-pub-5832084307445472~3414689490"
-			}
-		},
-		"android": {
-			"package": "com.inspiredDaily.app",
-			"versionCode": 11,
-			"permissions": [],
-			"config": {
-				"googleMobileAdsAppId": "ca-app-pub-5832084307445472~3414689490"
-			}
-		},
-		"scheme": "exp32e04ec698934df29470a0574a2d4abe"
-	}
+  "expo": {
+    "name": "Daily Inspired",
+    "slug": "bibleInspirationDaily",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "6.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "notification": {
+      "icon": "./assets/images/icon.png"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 10000
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.inspiredDaily.app",
+      "buildNumber": "11.0.0",
+      "supportsTablet": false,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-5832084307445472~3414689490"
+      }
+    },
+    "android": {
+      "package": "com.inspiredDaily.app",
+      "versionCode": 11,
+      "permissions": [],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-5832084307445472~3414689490"
+      }
+    },
+    "scheme": "exp32e04ec698934df29470a0574a2d4abe",
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  }
 }
