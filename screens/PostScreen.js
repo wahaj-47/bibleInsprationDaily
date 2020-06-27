@@ -43,7 +43,7 @@ export default function PostScreen(props) {
   function getComments() {
     axios
       .get(
-        `http://bibleinspirationdaily.online/wp-json/wp/v2/comments?post=${post.id}&per_page=100`
+        `https://dailyinspiredhub.com/wp-json/wp/v2/comments?post=${post.id}&per_page=100`
       )
       .then((response) => {
         setComments(response.data);
@@ -116,7 +116,7 @@ export default function PostScreen(props) {
     getSavedIds();
     getLikedPosts();
     axios
-      .get(`http://bibleinspirationdaily.online/wp-json/wp/v2/posts/${post.id}`)
+      .get(`https://dailyinspiredhub.com/wp-json/wp/v2/posts/${post.id}`)
       .then((response) => {
         setPost(response.data);
       });
@@ -236,7 +236,7 @@ export default function PostScreen(props) {
             }}
             onPress={async () => {
               const cookie = await axios.post(
-                "https://bibleinspirationdaily.online/api/user/generate_auth_cookie?email=appUser@email.com&password=YT@$sqZX29xT58H#yy#qKJuh"
+                "https://dailyinspiredhub.com/api/user/generate_auth_cookie?email=appUser@email.com&password=YT@$sqZX29xT58H#yy#qKJuh"
               );
               // console.log(favourites.includes(post.id));
               if (likedPosts.includes(post.id) || isLiked) {
@@ -250,14 +250,14 @@ export default function PostScreen(props) {
                 );
                 axios
                   .post(
-                    `https://bibleinspirationdaily.online/api/user/like?cookie=${
+                    `https://dailyinspiredhub.com/api/user/like?cookie=${
                       cookie.data.cookie
                     }&post_id=${post.id}&value=${Number(likes) - 1}`
                   )
                   .then(() => {
                     axios
                       .get(
-                        `http://bibleinspirationdaily.online/wp-json/wp/v2/posts/${post.id}`
+                        `https://dailyinspiredhub.com/wp-json/wp/v2/posts/${post.id}`
                       )
                       .then((response) => {
                         console.log(response.data._liked);
@@ -280,14 +280,14 @@ export default function PostScreen(props) {
 
                 axios
                   .post(
-                    `https://bibleinspirationdaily.online/api/user/like?cookie=${
+                    `https://dailyinspiredhub.com/api/user/like?cookie=${
                       cookie.data.cookie
                     }&post_id=${post.id}&value=${Number(likes) + 1}`
                   )
                   .then(() => {
                     axios
                       .get(
-                        `http://bibleinspirationdaily.online/wp-json/wp/v2/posts/${post.id}`
+                        `https://dailyinspiredhub.com/wp-json/wp/v2/posts/${post.id}`
                       )
                       .then((response) => {
                         console.log(response.data._liked);
@@ -308,9 +308,7 @@ export default function PostScreen(props) {
               style={{
                 marginLeft: 5,
                 color:
-                  isLiked && likedPosts.includes(post.id)
-                    ? "steelblue"
-                    : "gray",
+                  isLiked && likedPosts.includes(post.id) ? "#F25C5C" : "gray",
               }}
             >
               {likes > post._liked
@@ -357,7 +355,7 @@ export default function PostScreen(props) {
               style={{
                 marginLeft: 5,
                 color:
-                  liked && favourites.includes(post.id) ? "steelblue" : "gray",
+                  liked && favourites.includes(post.id) ? "#F25C5C" : "gray",
               }}
             >
               Favourite
@@ -458,7 +456,7 @@ export default function PostScreen(props) {
               style={{
                 marginLeft: 5,
                 color:
-                  isSaved && savedIds.includes(post.id) ? "steelblue" : "gray",
+                  isSaved && savedIds.includes(post.id) ? "#F25C5C" : "gray",
               }}
             >
               {(!downloading &&
@@ -494,7 +492,7 @@ export default function PostScreen(props) {
                 alignSelf: "stretch",
                 marginTop: 10,
                 padding: 10,
-                backgroundColor: "steelblue",
+                backgroundColor: "#F25C5C",
                 borderRadius: 5,
                 alignItems: "center",
               }}
@@ -503,11 +501,11 @@ export default function PostScreen(props) {
                   "To ensure the quality of content, your comment will be reviewed and will be automatically added after the review is complete"
                 );
                 const cookie = await axios.post(
-                  "https://bibleinspirationdaily.online/api/user/generate_auth_cookie?email=appUser@email.com&password=YT@$sqZX29xT58H#yy#qKJuh"
+                  "https://dailyinspiredhub.com/api/user/generate_auth_cookie?email=appUser@email.com&password=YT@$sqZX29xT58H#yy#qKJuh"
                 );
                 axios
                   .post(
-                    `https://bibleinspirationdaily.online/api/user/post_comment?cookie=${cookie.data.cookie}&post_id=${post.id}&content=${comment}&comment_status=hold`
+                    `https://dailyinspiredhub.com/api/user/post_comment?cookie=${cookie.data.cookie}&post_id=${post.id}&content=${comment}&comment_status=hold`
                   )
                   .then(() => {
                     getComments();
@@ -564,7 +562,7 @@ PostScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EDE9",
     paddingVertical: 20,
   },
   title: {

@@ -28,22 +28,27 @@ export default function DevotionScreen(props) {
   const [favourites, setFavourites] = useState([]);
 
   async function registerForPushNotificationsAsync() {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    const { status } = await Notifications.requestPermissionsAsync();
+    console.log("asking for notifications");
+
     // only asks if permissions have not already been determined, because
     // iOS won't necessarily prompt the user a second time.
     // On Android, permissions are granted on app installation, so
     // `askAsync` will never prompt the user
+    console.log("Status", status);
 
     // Stop here if the user did not grant permissions
-    if (status !== "granted") {
-      alert("No notification permissions!");
+    if (status !== 1) {
+      // alert("No notification permissions!");
       return;
     }
-
     // Get the token that identifies this device
-    let token = await Notifications.getExpoPushTokenAsync();
+    let token = await Notifications.getExpoPushTokenAsync({
+      experienceId: "@whaj47/bibleInspirationDaily",
+    });
+    console.log(token);
     axios.put(
-      `https://bibleinspirationdaily.online/wp-json/tsd/v1/push-notification/users/${token}`,
+      `https://dailyinspiredhub.com/wp-json/tsd/v1/push-notification/users/${token}`,
       {
         subscribing: {
           list: ["app"],
@@ -57,7 +62,7 @@ export default function DevotionScreen(props) {
   async function getPosts() {
     setRefreshing(true);
     const response = await axios.get(
-      "http://bibleinspirationdaily.online/wp-json/wp/v2/posts?categories=5&per_page=20"
+      "https://dailyinspiredhub.com/wp-json/wp/v2/posts?categories=5&per_page=20"
     );
     setPosts(response.data);
     arrayholder = response.data;
@@ -196,7 +201,7 @@ DevotionScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EDE9",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight + 20 || 40,
   },

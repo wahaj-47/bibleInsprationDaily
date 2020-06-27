@@ -134,8 +134,8 @@ android {
         applicationId 'com.inspiredDaily.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "6.0.0"
+        versionCode 12
+        versionName "10.0.0"
     }
     splits {
         abi {
@@ -203,3 +203,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: 'com.google.gms.google-services'

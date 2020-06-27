@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "787785436585",
+    "firebase_url": "https://daily-inspired.firebaseio.com",
+    "project_id": "daily-inspired",
+    "storage_bucket": "daily-inspired.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787785436585:android:bad07a00c83323802748b8",
+        "android_client_info": {
+          "package_name": "com.inspiredDaily.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787785436585-vruin0r4ramel4mpvkoa8uu82bfa4iqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAcgpdwCId24NCKYGqJpMjDtvNIxTrnms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787785436585-vruin0r4ramel4mpvkoa8uu82bfa4iqn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "787785436585-53f0guavddf4svqa1aqrdoj787434dp6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.inspiredDaily.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

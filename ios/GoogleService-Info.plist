@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>787785436585-53f0guavddf4svqa1aqrdoj787434dp6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.787785436585-53f0guavddf4svqa1aqrdoj787434dp6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBGw9rGrK_IPUmOPupkslAXFnjf6Y8Q02g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>787785436585</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.inspiredDaily.app</string>
+	<key>PROJECT_ID</key>
+	<string>daily-inspired</string>
+	<key>STORAGE_BUCKET</key>
+	<string>daily-inspired.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:787785436585:ios:89017f0be788aa9c2748b8</string>
+	<key>DATABASE_URL</key>
+	<string>https://daily-inspired.firebaseio.com</string>
+</dict>
+</plist>

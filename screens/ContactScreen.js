@@ -89,7 +89,7 @@ export default function ContactScreen(props) {
           <Image
             source={{
               uri:
-                "http://bibleinspirationdaily.online/wp-content/uploads/2019/12/forest-mountains-fog-clouds-9754.jpg",
+                "https://dailyinspiredhub.com/wp-content/uploads/2019/12/forest-mountains-fog-clouds-9754.jpg",
             }}
             style={{ flex: 1, width: null, height: null, resizeMode: "cover" }}
           ></Image>
@@ -101,12 +101,9 @@ export default function ContactScreen(props) {
           }}
         >
           <Text>
-            We’re here to inspire you daily with the word or God. Daily Bible
-            Devotionals, help you grow in your faith, and stay connected more to
-            Jesus. Also, today’s main stream media often portrays negative news,
-            so we created a “positive news” section that only portrays positive
-            news and articles, we hope that they will bring encouragement to
-            your life.
+            Our focus is to inspire, motivate, and strengthen Christians in
+            their walk with God. Donate to help us spread the word of God to
+            others!
           </Text>
         </View>
         <View
@@ -119,7 +116,7 @@ export default function ContactScreen(props) {
           <View
             style={{
               padding: 10,
-              borderColor: "steelblue",
+              borderColor: "#F25C5C",
               borderRadius: 10,
               borderWidth: 1,
               marginBottom: 20,
@@ -170,7 +167,7 @@ export default function ContactScreen(props) {
                   size="small"
                 ></ActivityIndicator>
               ) : (
-                <Text style={styles.buttonText}>$7.99/month</Text>
+                <Text style={styles.buttonText}>$1.99/month</Text>
               )}
             </TouchableOpacity>
             <TouchableOpacity
@@ -219,7 +216,7 @@ export default function ContactScreen(props) {
               try {
                 const result = await Share.share({
                   title: "Inspired Daily",
-                  url: "http://bibleinspirationdaily.online/",
+                  url: "https://dailyinspiredhub.com/",
                 });
 
                 if (result.action === Share.sharedAction) {
@@ -289,7 +286,7 @@ export default function ContactScreen(props) {
           >
             <TouchableOpacity
               onPress={() => {
-                Linking.openURL("https://www.instagram.com/dailyinspiredapp/");
+                Linking.openURL("https://instagram.com/dailyinspiredhub");
               }}
             >
               <TabBarIcon
@@ -302,11 +299,33 @@ export default function ContactScreen(props) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                Linking.openURL("https://www.facebook.com/dailyinspiredapp/");
+                Linking.openURL("https://facebook.com/dailyinspiredhub");
               }}
             >
               <TabBarIcon
                 name={Platform.OS === "ios" ? "logo-facebook" : "logo-facebook"}
+                size={50}
+                color="rgba(0,0,0,0.4)"
+              ></TabBarIcon>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL("https://twitter.com/dailyinspiredhb");
+              }}
+            >
+              <TabBarIcon
+                name={"logo-twitter"}
+                size={50}
+                color="rgba(0,0,0,0.4)"
+              ></TabBarIcon>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL("https://dailyinspiredhub.com");
+              }}
+            >
+              <TabBarIcon
+                name={Platform.OS === "ios" ? "ios-globe" : "md-globe"}
                 size={50}
                 color="rgba(0,0,0,0.4)"
               ></TabBarIcon>
@@ -358,7 +377,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EDE9",
     paddingTop: StatusBar.currentHeight + 20 || 40,
   },
   header: {
@@ -374,7 +393,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: "stretch",
-    backgroundColor: "steelblue",
+    backgroundColor: "#F25C5C",
     padding: 10,
     marginBottom: 20,
     alignItems: "center",

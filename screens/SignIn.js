@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     paddingBottom: scaleVertical(24),
     paddingHorizontal: scale(16),
     flex: 1,
-    backgroundColor: "rgb(245, 245, 245)",
+    backgroundColor: "#F2EDE9",
   },
   close: {
     position: "absolute",
@@ -84,12 +84,12 @@ class SignIn extends React.PureComponent {
   handleLoginPressed = () => {
     axios
       .post(
-        "https://bibleinspirationdaily.online/api/get_nonce/?controller=user&method=generate_auth_cookie"
+        "https://dailyinspiredhub.com/api/get_nonce/?controller=user&method=generate_auth_cookie"
       )
       .then(({ data }) => {
         axios
           .post(
-            `https://bibleinspirationdaily.online/api/user/generate_auth_cookie?username=${this.state.username}&password=${this.state.password}&nonce=${data.nonce}`
+            `https://dailyinspiredhub.com/api/user/generate_auth_cookie?username=${this.state.username}&password=${this.state.password}&nonce=${data.nonce}`
           )
           .then(({ data }) => {
             if (data.error) {
@@ -172,7 +172,7 @@ class SignIn extends React.PureComponent {
 						>
 							<Text
 								style={{
-									color: "steelblue",
+									color: "#F25C5C",
 									fontSize: 16,
 									marginTop: 8,
 									fontWeight: "bold"
@@ -192,7 +192,7 @@ class SignIn extends React.PureComponent {
             >
               <Text
                 style={{
-                  color: "steelblue",
+                  color: "#F25C5C",
                   fontSize: 16,
                   marginTop: 8,
                   fontWeight: "bold",

@@ -26,7 +26,7 @@ export default function NewsScreen(props) {
   async function getPosts() {
     setRefreshing(true);
     const response = await axios.get(
-      "http://bibleinspirationdaily.online/wp-json/wp/v2/posts?categories=6&per_page=20"
+      "https://dailyinspiredhub.com/wp-json/wp/v2/posts?categories=6&per_page=20"
     );
     setPosts(response.data);
     arrayholder = response.data;
@@ -161,7 +161,7 @@ NewsScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EDE9",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight + 20 || 40,
   },
