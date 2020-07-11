@@ -17,8 +17,8 @@ import { TextInput } from "react-native-gesture-handler";
 import * as Network from "expo-network";
 // import { Notifications } from "expo";
 import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
 import Wordpress from "../constants/Wordpress";
+import { Permissions } from "react-native-unimodules";
 
 let arrayholder = [];
 
@@ -43,11 +43,14 @@ export default function DevotionScreen(props) {
 			// alert("No notification permissions!");
 			return;
 		}
+
 		// Get the token that identifies this device
-		let token = await Notifications.getExpoPushTokenAsync({
+		let { data: token } = await Notifications.getExpoPushTokenAsync({
 			experienceId: "@whaj47/bibleInspirationDaily",
 		});
+
 		console.log(token);
+
 		axios.put(
 			`${Wordpress.url}/wp-json/tsd/v1/push-notification/users/${token}`,
 			{
@@ -91,7 +94,11 @@ export default function DevotionScreen(props) {
 
 	useEffect(() => {
 		const focus = props.navigation.addListener("didFocus", getFavourites);
-		registerForPushNotificationsAsync();
+		try {
+			registerForPushNotificationsAsync();
+		} catch (error) {
+			console.log(errror);
+		}
 		getFavourites();
 		if (getNetworkState()) getPosts();
 		else getSavedPosts();
