@@ -29,6 +29,13 @@ export default function DevotionScreen(props) {
 	const [favourites, setFavourites] = useState([]);
 
 	async function registerForPushNotificationsAsync() {
+		Notifications.setNotificationHandler({
+			handleNotification: async () => ({
+				shouldShowAlert: true,
+				shouldPlaySound: false,
+				shouldSetBadge: false,
+			}),
+		});
 		const { status } = await Notifications.requestPermissionsAsync();
 		console.log("asking for notifications");
 

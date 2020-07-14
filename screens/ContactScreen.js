@@ -21,6 +21,7 @@ import * as StoreReview from "expo-store-review";
 
 import * as InAppPurchases from "expo-in-app-purchases";
 import Wordpress from "../constants/Wordpress";
+import URLs from "../constants/URLs";
 
 export default function ContactScreen(props) {
 	const [loading, setLoading] = useState(false);
@@ -282,13 +283,13 @@ export default function ContactScreen(props) {
 						style={{
 							flexDirection: "row",
 							justifyContent: "space-between",
-							paddingHorizontal: 100,
+							paddingHorizontal: 30,
 							marginBottom: 10,
 						}}
 					>
 						<TouchableOpacity
 							onPress={() => {
-								Linking.openURL("https://instagram.com/dailyinspiredhub");
+								Linking.openURL(URLs.instagram);
 							}}
 						>
 							<TabBarIcon
@@ -301,7 +302,7 @@ export default function ContactScreen(props) {
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => {
-								Linking.openURL("https://facebook.com/dailyinspiredhub");
+								Linking.openURL(URLs.facebook);
 							}}
 						>
 							<TabBarIcon
@@ -312,7 +313,7 @@ export default function ContactScreen(props) {
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => {
-								Linking.openURL("https://twitter.com/dailyinspiredhb");
+								Linking.openURL(URLs.twitter);
 							}}
 						>
 							<TabBarIcon
@@ -328,6 +329,17 @@ export default function ContactScreen(props) {
 						>
 							<TabBarIcon
 								name={Platform.OS === "ios" ? "ios-globe" : "md-globe"}
+								size={50}
+								color="rgba(0,0,0,0.4)"
+							></TabBarIcon>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+								Linking.openURL(URLs.youtube);
+							}}
+						>
+							<TabBarIcon
+								name={"logo-youtube"}
 								size={50}
 								color="rgba(0,0,0,0.4)"
 							></TabBarIcon>
