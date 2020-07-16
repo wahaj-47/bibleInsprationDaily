@@ -18,7 +18,7 @@ import * as Network from "expo-network";
 // import { Notifications } from "expo";
 import * as Notifications from "expo-notifications";
 import Wordpress from "../constants/Wordpress";
-import { Permissions } from "react-native-unimodules";
+import { Constants } from "react-native-unimodules";
 
 let arrayholder = [];
 
@@ -29,13 +29,6 @@ export default function DevotionScreen(props) {
 	const [favourites, setFavourites] = useState([]);
 
 	async function registerForPushNotificationsAsync() {
-		Notifications.setNotificationHandler({
-			handleNotification: async () => ({
-				shouldShowAlert: true,
-				shouldPlaySound: false,
-				shouldSetBadge: false,
-			}),
-		});
 		const { status } = await Notifications.requestPermissionsAsync();
 		console.log("asking for notifications");
 
@@ -50,6 +43,10 @@ export default function DevotionScreen(props) {
 			// alert("No notification permissions!");
 			return;
 		}
+
+		// let deviceToken = await Notifications.getDevicePushTokenAsync();
+
+		// console.log(deviceToken);
 
 		// Get the token that identifies this device
 		let { data: token } = await Notifications.getExpoPushTokenAsync({
@@ -69,6 +66,16 @@ export default function DevotionScreen(props) {
 			}
 		);
 	}
+
+	useEffect(() => {
+		Notifications.setNotificationHandler({
+			handleNotification: async () => ({
+				shouldShowAlert: true,
+				shouldPlaySound: false,
+				shouldSetBadge: false,
+			}),
+		});
+	}, []);
 
 	async function getPosts() {
 		setRefreshing(true);
