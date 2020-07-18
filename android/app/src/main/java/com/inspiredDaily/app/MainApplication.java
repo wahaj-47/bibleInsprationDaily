@@ -26,6 +26,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
+import im.crisp.sdk.Crisp;
+
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
@@ -78,6 +80,10 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+
+    Crisp.initialize(this);
+    Crisp.getInstance().setWebsiteId("1cd1f343-e9ea-4de0-b60e-7c9b0b7f154f");
+
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
 

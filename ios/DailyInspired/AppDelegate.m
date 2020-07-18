@@ -16,6 +16,8 @@
 
 #import <Firebase.h>
 
+@import Crisp;
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) NSDictionary *launchOptions;
@@ -28,6 +30,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [[CrispMain alloc] initializeWithWebsiteId:@"1cd1f343-e9ea-4de0-b60e-7c9b0b7f154f"];
  if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];
   }
