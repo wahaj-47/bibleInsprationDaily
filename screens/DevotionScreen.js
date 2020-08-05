@@ -67,15 +67,15 @@ export default function DevotionScreen(props) {
 		);
 	}
 
-	useEffect(() => {
-		Notifications.setNotificationHandler({
-			handleNotification: async () => ({
-				shouldShowAlert: true,
-				shouldPlaySound: false,
-				shouldSetBadge: false,
-			}),
-		});
-	}, []);
+	// useEffect(() => {
+	// 	Notifications.setNotificationHandler({
+	// 		handleNotification: async () => ({
+	// 			shouldShowAlert: true,
+	// 			shouldPlaySound: false,
+	// 			shouldSetBadge: false,
+	// 		}),
+	// 	});
+	// }, []);
 
 	async function getPosts() {
 		setRefreshing(true);
