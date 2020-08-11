@@ -18,7 +18,7 @@ PODS:
   - EXFont (8.1.1):
     - UMCore
     - UMFontInterface
-  - EXHaptics (6.0.0):
+  - EXHaptics (8.2.1):
     - UMCore
   - EXImageLoader (1.1.1):
     - React-Core
@@ -601,7 +601,7 @@ SPEC CHECKSUMS:
   EXErrorRecovery: 8f4c21ab2f51bf75defe4536f841a37de59b0661
   EXFileSystem: 76875135b61708b9afa7e6a89b72a60ba0fdfa20
   EXFont: b60f7a8900e3a12e7be3b2a40e19b22c7b5f89ba
-  EXHaptics: f84c93d605e0905c47654e4a6e5dfbff78ed6906
+  EXHaptics: 5428b344a216ca5d9df6ca8f65720b2a1ad9f109
   EXImageLoader: 02ca02c9cd5cc8a97b423207a73a791e0a86bea5
   EXInAppPurchases: 084e1ea266b7b297010d3a1534bd1fe285fba235
   EXKeepAwake: d045bc2cf1ad5a04f0323cc7c894b95b414042e0
@@ -676,4 +676,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 911f51f98e920139a7ed67998ce9e614bd37ba9f
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

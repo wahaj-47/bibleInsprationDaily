@@ -128,7 +128,7 @@ export default function ContactScreen(props) {
 						<Text
 							style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}
 						>
-							Remove Ads:
+							Remove Annoying Ads:
 						</Text>
 						<Text>Following ads will be removed</Text>
 						<Text>- Banner ads</Text>
@@ -144,11 +144,11 @@ export default function ContactScreen(props) {
 								setLoading(true);
 								try {
 									const items = await initItems();
-									console.log(items);
 									if (items !== "Error") {
+										console.log(items);
 										console.log("here");
-										await InAppPurchases.purchaseItemAsync(
-											items[0].productId
+										InAppPurchases.purchaseItemAsync(
+											items[0]["productId"]
 										).then(() => {
 											InAppPurchases.disconnectAsync();
 											setLoading(false);

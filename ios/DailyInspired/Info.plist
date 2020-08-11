@@ -51,7 +51,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>Allow Daily Inspired to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow Daily Inspired to use the camera</string>
+	<string>Allow Daily Inspired to use the camera to send pictures to support chat</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow Daily Inspired experiences to access your contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
