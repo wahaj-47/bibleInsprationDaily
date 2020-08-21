@@ -144,12 +144,14 @@
 			buildPhases = (
 				F8BC737F2AD7A05944D9E2A1 /* [CP] Check Pods Manifest.lock */,
 				FD4C38642228810C00325AF5 /* Start Packager */,
+				403B07E1DE3535DBCD90BF0C /* [CP] Prepare Artifacts */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle Expo Assets */,
 				46ED26CAE756E76DAB583940 /* [CP] Copy Pods Resources */,
 				E0A0163962E95B7AC26CDA88 /* [CP-User] [RNFB] Core Configuration */,
+				4F9C47C8AF4B261538B0EBDA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +228,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=\"/Users/whaj47/.nvm/versions/node/v12.16.3/bin/node\"\n../node_modules/expo-updates/bundle-expo-assets.sh\n";
 		};
+		403B07E1DE3535DBCD90BF0C /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DailyInspired/Pods-DailyInspired-artifacts.sh",
+				"${PODS_ROOT}/Crisp/Crisp.xcframework",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DailyInspired/Pods-DailyInspired-artifacts.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		46ED26CAE756E76DAB583940 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +292,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DailyInspired/Pods-DailyInspired-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F9C47C8AF4B261538B0EBDA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DailyInspired/Pods-DailyInspired-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DailyInspired/Pods-DailyInspired-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E0A0163962E95B7AC26CDA88 /* [CP-User] [RNFB] Core Configuration */ = {
@@ -350,7 +387,7 @@
 				CODE_SIGN_ENTITLEMENTS = DailyInspired/app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = R3JJQ7S8P7;
 				INFOPLIST_FILE = DailyInspired/Info.plist;
@@ -382,7 +419,7 @@
 				CODE_SIGN_ENTITLEMENTS = DailyInspired/app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = R3JJQ7S8P7;
 				INFOPLIST_FILE = DailyInspired/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

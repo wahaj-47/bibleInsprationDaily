@@ -1,6 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Crisp (0.1.30)
+  - Crisp (1.0.3)
   - DoubleConversion (1.1.6)
   - EXAdsAdMob (8.1.0):
     - Google-Mobile-Ads-SDK (= 7.53.1)
@@ -290,8 +290,8 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
-  - react-native-crisp-chat-sdk (0.1.2):
-    - Crisp (= 0.1.30)
+  - react-native-crisp-chat-sdk (0.2.1):
+    - Crisp (= 1.0.3)
     - React
   - react-native-webview (7.4.3):
     - React
@@ -593,7 +593,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Crisp: 9885dbc560baa857109a489e4a292afb1901cf7f
+  Crisp: 25e6203d6387904611b093fd969c27c92d713501
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   EXAdsAdMob: 3e5722fab02ba964b13b2fc8336e4a466adf7bc3
   EXApplication: 7cf81de6fafccff42f5d1caa5c24a159db6b9437
@@ -639,7 +639,7 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-crisp-chat-sdk: 6955b7238331e7c9ddfcd65d47eb4ee69785be80
+  react-native-crisp-chat-sdk: 5863fec35a4bc549852c1e26d2cc334d59e02d2d
   react-native-webview: 82d6456dfae1b3ef70c3939135536342afc96373
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360

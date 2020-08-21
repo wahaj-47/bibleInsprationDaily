@@ -33,7 +33,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "~0.61.5",
-    "react-native-crisp-chat-sdk": "https://github.com/walterholohan/react-native-crisp-chat-sdk.git",
+    "react-native-crisp-chat-sdk": "^0.2.1",
     "react-native-fast-image": "^8.1.5",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-gradient-buttons": "^2.0.1",

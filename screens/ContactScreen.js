@@ -109,6 +109,7 @@ export default function ContactScreen(props) {
 						others!
 					</Text>
 				</View>
+
 				<View
 					style={{
 						justifyContent: "center",
@@ -116,88 +117,90 @@ export default function ContactScreen(props) {
 						marginHorizontal: 20,
 					}}
 				>
-					<View
-						style={{
-							padding: 10,
-							borderColor: "#F25C5C",
-							borderRadius: 10,
-							borderWidth: 1,
-							marginBottom: 20,
-						}}
-					>
-						<Text
-							style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}
+					{false && (
+						<View
+							style={{
+								padding: 10,
+								borderColor: "#F25C5C",
+								borderRadius: 10,
+								borderWidth: 1,
+								marginBottom: 20,
+							}}
 						>
-							Remove Annoying Ads:
-						</Text>
-						<Text>Following ads will be removed</Text>
-						<Text>- Banner ads</Text>
-						<Text>- Full screen ads</Text>
-						<TouchableOpacity
-							// disabled={history === undefined}
-							style={[
-								history === undefined && { backgroundColor: "gray" },
-								styles.button,
-								{ marginBottom: 0, marginTop: 10 },
-							]}
-							onPress={async () => {
-								setLoading(true);
-								try {
-									const items = await initItems();
-									if (items !== "Error") {
-										console.log(items);
-										console.log("here");
-										InAppPurchases.purchaseItemAsync(
-											items[0]["productId"]
-										).then(() => {
+							<Text
+								style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}
+							>
+								Remove Annoying Ads:
+							</Text>
+							<Text>Following ads will be removed</Text>
+							<Text>- Banner ads</Text>
+							<Text>- Full screen ads</Text>
+							<TouchableOpacity
+								// disabled={history === undefined}
+								style={[
+									history === undefined && { backgroundColor: "gray" },
+									styles.button,
+									{ marginBottom: 0, marginTop: 10 },
+								]}
+								onPress={async () => {
+									setLoading(true);
+									try {
+										const items = await initItems();
+										if (items !== "Error") {
+											console.log(items);
+											console.log("here");
+											InAppPurchases.purchaseItemAsync(
+												items[0]["productId"]
+											).then(() => {
+												InAppPurchases.disconnectAsync();
+												setLoading(false);
+											});
+										} else {
 											InAppPurchases.disconnectAsync();
 											setLoading(false);
-										});
-									} else {
-										InAppPurchases.disconnectAsync();
+										}
+									} catch (error) {
+										console.log(error);
 										setLoading(false);
+										InAppPurchases.disconnectAsync();
 									}
-								} catch (error) {
-									console.log(error);
-									setLoading(false);
-									InAppPurchases.disconnectAsync();
-								}
-							}}
-						>
-							{loading ? (
-								<ActivityIndicator
-									color="white"
-									size="small"
-								></ActivityIndicator>
-							) : (
-								<Text style={styles.buttonText}>$1.99/month</Text>
-							)}
-						</TouchableOpacity>
-						<TouchableOpacity
-							// disabled={history === undefined}
-							style={[
-								history === undefined && { backgroundColor: "gray" },
-								styles.button,
-								{ marginBottom: 0, marginTop: 10 },
-							]}
-							onPress={async () => {
-								setRestoring(true);
-								props.screenProps.restorePurchases().then(() => {
-									alert("Purchases Restored");
-									setRestoring(false);
-								});
-							}}
-						>
-							{restoring ? (
-								<ActivityIndicator
-									color="white"
-									size="small"
-								></ActivityIndicator>
-							) : (
-								<Text style={styles.buttonText}>Restore Purchases</Text>
-							)}
-						</TouchableOpacity>
-					</View>
+								}}
+							>
+								{loading ? (
+									<ActivityIndicator
+										color="white"
+										size="small"
+									></ActivityIndicator>
+								) : (
+									<Text style={styles.buttonText}>$1.99/month</Text>
+								)}
+							</TouchableOpacity>
+							<TouchableOpacity
+								// disabled={history === undefined}
+								style={[
+									history === undefined && { backgroundColor: "gray" },
+									styles.button,
+									{ marginBottom: 0, marginTop: 10 },
+								]}
+								onPress={async () => {
+									setRestoring(true);
+									props.screenProps.restorePurchases().then(() => {
+										alert("Purchases Restored");
+										setRestoring(false);
+									});
+								}}
+							>
+								{restoring ? (
+									<ActivityIndicator
+										color="white"
+										size="small"
+									></ActivityIndicator>
+								) : (
+									<Text style={styles.buttonText}>Restore Purchases</Text>
+								)}
+							</TouchableOpacity>
+						</View>
+					)}
 					<TouchableOpacity
 						activeOpacity={0.8}
 						onPress={() => {
